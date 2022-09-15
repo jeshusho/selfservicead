@@ -70,7 +70,7 @@ padding:10px 20px 10px 20px!important;
 <td align="center" valign="top" style="padding:0;Margin:0;width:600px">
 <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#b21828" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#b21828" role="presentation">
 <tr>
-<td align="center" class="es-m-p20t es-m-p20b es-m-p40r es-m-p40l" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px;font-size:0px"><img class="adapt-img" src="/logo.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="194" height="42"></td>
+<td align="center" class="es-m-p20t es-m-p20b es-m-p40r es-m-p40l" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px;font-size:0px"><img class="adapt-img" src="{{ asset("/logo.png") }}" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="194" height="42"></td>
 </tr>
 </table></td>
 </tr>
@@ -166,7 +166,7 @@ padding:10px 20px 10px 20px!important;
 <td align="center" valign="top" style="padding:0;Margin:0;width:600px">
 <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#b21828" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#b21828" role="presentation">
 <tr>
-<td align="center" class="es-m-p40r es-m-p40l" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px;font-size:0px"><img class="adapt-img" src="/logo.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="194" height="42"></td>
+<td align="center" class="es-m-p40r es-m-p40l" style="padding:0;Margin:0;padding-top:20px;padding-bottom:20px;font-size:0px"><img class="adapt-img" src="{{ asset("/logo.png") }}" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="194" height="42"></td>
 </tr>
 </table></td>
 </tr>
