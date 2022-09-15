@@ -51,6 +51,7 @@ return [
             'after_commit' => false,
         ],
 
+        
         'sqs' => [
             'driver' => 'sqs',
             'key' => env('AWS_ACCESS_KEY_ID'),
