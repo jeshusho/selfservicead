@@ -20,6 +20,7 @@ class NotificationController extends Controller
     {
         $now = Carbon::now();
         $now_local = Carbon::now(new DateTimeZone('America/Lima'))->isoFormat('HH:mm');
+		Log::info('Schedule execute in: ' . $now_local);
         $schedules = Schedule::get();
         foreach($schedules as $schedule)
         {
