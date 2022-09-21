@@ -15,7 +15,7 @@ class SettingSeeder extends Seeder
      */
     public function run()
     {
-        Setting::create(['parameter' => 'logo_url', 'value' => 'https://visualizate.utpxpedition.com/sites/default/files/2020-02/logo-visualizate.png']);
+        Setting::create(['parameter' => 'logo_url', 'value' => 'https://notificacionesad.dctechperu.com/logo.png']);
         Setting::create(['parameter' => 'principal_link_text', 'value' => 'https://clave.utp.edu.pe']);
         Setting::create(['parameter' => 'principal_link_url', 'value' => 'https://clave.utp.edu.pe']);
         Setting::create(['parameter' => 'mda_whatsapp_text', 'value' => '994 693 775']);
