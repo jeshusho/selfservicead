@@ -43,6 +43,7 @@ class AduserController extends Controller
         $today = Carbon::today('America/Lima')->isoFormat('YYYY-M-D');
         $registros =  json_decode(json_encode($request->all()));
         
+        return $registros;
         foreach($registros as $r){
             //$texto_convert = strtr(utf8_decode($texto), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
             $expiration_timestamp = null;
