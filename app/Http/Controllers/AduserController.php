@@ -38,6 +38,7 @@ class AduserController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         Aduser::where('active',true)->update(['active' => false]);
         $now = Carbon::now();
         $today = Carbon::today('America/Lima')->isoFormat('YYYY-M-D');
