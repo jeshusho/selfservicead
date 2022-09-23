@@ -60,7 +60,7 @@ class AduserController extends Controller
                 'display_name' => strtoupper($r->Displayname),
                 'given_name' => strtoupper($r->givenName),
                 'mail' => $r->mail,
-                //'department' => $r->department,
+                'department' => $r->department,
                 'password_expired' => $r->PasswordExpired,
                 'expiration_str' => !is_null($r->ExpirationDate) ? $r->ExpirationDate->DateTime : null,
                 'expiration_date' =>  !is_null($expiration) ? $expiration->isoFormat('YYYY-MM-DD HH:mm:ss'): null,
