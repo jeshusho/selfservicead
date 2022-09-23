@@ -40,10 +40,11 @@ class AduserController extends Controller
     {
         Aduser::where('active',true)->update(['active' => false]);
         $now = Carbon::now();
+        return $now;
         $today = Carbon::today('America/Lima')->isoFormat('YYYY-M-D');
         $registros =  json_decode(json_encode($request->all()));
         
-        return $registros;
+        
         foreach($registros as $r){
             //$texto_convert = strtr(utf8_decode($texto), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
             $expiration_timestamp = null;
