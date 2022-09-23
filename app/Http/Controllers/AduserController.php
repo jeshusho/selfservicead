@@ -41,7 +41,7 @@ class AduserController extends Controller
         Aduser::where('active',true)->update(['active' => false]);
         $now = Carbon::now();
         $today = Carbon::today('America/Lima')->isoFormat('YYYY-M-D');
-        $registros = $request->all();
+        $registros = json_encode($request->all());
         return $registros;
         //$registros =  json_decode(json_encode($request->all()));
         
