@@ -10,4 +10,3 @@ class Message extends Model
     use HasFactory;
     protected $fillable = ['aduser_id','sendig_time', 'days'];
 }
-}
