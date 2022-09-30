@@ -89,4 +89,12 @@ class NotificationController extends Controller
             }
         }
     }
+    public function test(){
+        $now = Carbon::now();
+        $now_local = Carbon::now(new DateTimeZone('America/Lima'))->isoFormat('HH:mm');
+        return [
+            'now' => $now,
+            'now_local' => $now_local
+        ];
+    }
 }

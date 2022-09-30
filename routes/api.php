@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->post('adusers', [AduserController::class, 'store'])->name('adusers');
 Route::middleware('auth:sanctum')->get('sendnotifications', [NotificationController::class, 'send'])->name('sendnotifications');
+Route::get('test', [NotificationController::class, 'test'])->name('test');
