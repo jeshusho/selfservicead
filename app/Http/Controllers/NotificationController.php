@@ -38,7 +38,7 @@ class NotificationController extends Controller
                     //return $diffmin;
                     if($diffmin <= $max_delay){
                         $parameters = [
-                            'logo_url' => Setting::where('parameter','logo_url')->first()->value,
+                           // 'logo_url' => Setting::where('parameter','logo_url')->first()->value,
                             'principal_link_text' => Setting::where('parameter','principal_link_text')->first()->value,
                             'principal_link_url' => Setting::where('parameter','principal_link_url')->first()->value,
                             'mda_whatsapp_text' => Setting::where('parameter','mda_whatsapp_text')->first()->value,

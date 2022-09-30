@@ -35,7 +35,7 @@ class NotificationMessage extends Mailable implements ShouldQueue
         return $this->subject('¡Renueva tu contraseña!... Y evita tener inconvenientes con el acceso a nuestros Sistemas.')
                 ->view('mail.notification-message')
                 ->with([
-                    'logo_url' => $this->aduser->logo_url,
+                   // 'logo_url' => $this->aduser->logo_url,
                     'given_name' => $this->aduser->given_name,
                     'username' => $this->aduser->username,
                     'expiration_days' => $this->aduser->expiration_days,
