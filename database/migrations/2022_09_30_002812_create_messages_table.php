@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->biginteger('aduser_id')->unsigned()->nullable();
             $table->foreign('aduser_id')->references('id')->on('adusers');
-            $table->dateTime('sendig_time');
-            $table->tinyInteger('days');
+            $table->dateTime('sending_time')->nullable();
+            $table->tinyInteger('days')->nullable();
             $table->timestamps();
         });
     }
