@@ -143,7 +143,7 @@ padding:10px 20px 10px 20px!important;
 <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
 <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
-<td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#000000;font-size:14px;text-align:center;">
+<td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#000000;font-size:14px;text-align:center;">
     Para conocer más sobre nuestros servicios tecnológicos te invitamos a visitar el portal
     </p></td>
 </tr>
