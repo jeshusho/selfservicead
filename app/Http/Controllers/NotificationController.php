@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\NotificationMessage;
 use App\Models\Aduser;
+use App\Models\Message;
 use App\Models\Notification;
 use App\Models\Schedule;
 use App\Models\ScheduledTask;
@@ -65,6 +66,12 @@ class NotificationController extends Controller
                         foreach($adusers as $aduser)
                         {
                             Mail::to($aduser->mail)->send(new NotificationMessage($aduser,json_decode(json_encode($parameters))));
+                            $message_data = [
+                                'aduser_id' => $aduser->id,
+                                'sending_time' => $now->isoFormat('YYYY-MM-DD HH:mm:ss'),
+                                'days' => $aduser->expiration_days
+                            ];
+                            Message::create($message_data);
                             $num_notif++;
                         }
                         Log::info('Se enviaron '. $num_notif . ' notificaciones.');

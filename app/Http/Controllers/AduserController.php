@@ -52,7 +52,8 @@ class AduserController extends Controller
             if(!is_null($r->ExpirationDate)){
                 $expiration_timestamp = intval(str_replace(")/","",str_replace("/Date(", "", $r->ExpirationDate->value)));
                 $expiration = Carbon::createFromTimestampMs($expiration_timestamp);
-                $expiration_days = ceil($now->diffInHours($expiration)/24);
+                //$expiration_days = ceil($now->diffInHours($expiration)/24);
+                $expiration_days = $now->midDay()->diffInDays($expiration->midDay());
             }
 
             $data = [
