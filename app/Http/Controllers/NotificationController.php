@@ -60,21 +60,23 @@ class NotificationController extends Controller
                         {
                             array_push($expiration_days,$n->days);
                         }
-                
-                        $adusers = Aduser::where('active',true)->whereIn('expiration_days',$expiration_days)->get();
-                        $num_notif = 0;
-                        foreach($adusers as $aduser)
-                        {
-                            Mail::to($aduser->mail)->send(new NotificationMessage($aduser,json_decode(json_encode($parameters))));
-                            $message_data = [
-                                'aduser_id' => $aduser->id,
-                                'sending_time' => $now->isoFormat('YYYY-MM-DD HH:mm:ss'),
-                                'days' => $aduser->expiration_days
-                            ];
-                            Message::create($message_data);
-                            $num_notif++;
+                        if(Aduser::where('active',true)->whereIn('expiration_days',$expiration_days)->count() > 0){
+                            $adusers = Aduser::where('active',true)->whereIn('expiration_days',$expiration_days)->get();
+                            $num_notif = 0;
+    
+                            foreach($adusers as $aduser)
+                            {
+                                Mail::to($aduser->mail)->send(new NotificationMessage($aduser,json_decode(json_encode($parameters))));
+                                $message_data = [
+                                    'aduser_id' => $aduser->id,
+                                    'sending_time' => $now->isoFormat('YYYY-MM-DD HH:mm:ss'),
+                                    'days' => $aduser->expiration_days
+                                ];
+                                Message::create($message_data);
+                                $num_notif++;
+                            }
+                            Log::info('Se enviaron '. $num_notif . ' notificaciones.');
                         }
-                        Log::info('Se enviaron '. $num_notif . ' notificaciones.');
                     }
                     else{
                         Log::info('Última actualización de información no se ejecutó en el rango de ' . $max_delay . ' minutos.');
