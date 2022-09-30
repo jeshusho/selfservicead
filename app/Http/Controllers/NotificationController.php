@@ -67,12 +67,15 @@ class NotificationController extends Controller
                             foreach($adusers as $aduser)
                             {
                                 Mail::to($aduser->mail)->send(new NotificationMessage($aduser,json_decode(json_encode($parameters))));
+                                $last_notification = $now->isoFormat('YYYY-MM-DD HH:mm:ss');
                                 $message_data = [
                                     'aduser_id' => $aduser->id,
-                                    'sending_time' => $now->isoFormat('YYYY-MM-DD HH:mm:ss'),
+                                    'sending_time' => $last_notification,
                                     'days' => $aduser->expiration_days
                                 ];
                                 Message::create($message_data);
+                                $aduser->last_notification = $last_notification;
+                                $aduser->save();
                                 $num_notif++;
                             }
                             Log::info('Se enviaron '. $num_notif . ' notificaciones.');
