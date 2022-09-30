@@ -91,10 +91,14 @@ class NotificationController extends Controller
     }
     public function test(){
         $now = Carbon::now();
-        $now_local = Carbon::now(new DateTimeZone('America/Lima'))->isoFormat('HH:mm');
+        $datetime_ini_local = Carbon::now(new DateTimeZone('America/Lima'))->isoFormat('DD-MM-YYYY 00:00:00');
+        $datetime_end_local = Carbon::now(new DateTimeZone('America/Lima'))->isoFormat('DD-MM-YYYY 23:59:59');
+        // $datetime_ini = $datetime_ini_local->setTimezone('UTC');
+        // $datetime_end = $datetime_end_local->setTimezone('UTC');
         return [
             'now' => $now,
-            'now_local' => $now_local
+            'datetime_ini_local' => $datetime_ini_local,
+            'datetime_end_local' => $datetime_end_local,
         ];
     }
 }
