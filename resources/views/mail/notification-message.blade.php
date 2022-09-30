@@ -154,7 +154,7 @@ padding:10px 20px 10px 20px!important;
 <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
 <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
-<td align="center" style="padding:0;Margin:0;padding-top:0px;padding-bottom:30px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#0000ff;font-size:18px;text-align:center;"><strong><a href="{{ $portal_url }}" target="_blank">{{ $portal_text }}</a></strong></p></td>
+<td align="center" style="padding:0;Margin:0;padding-top:0px;padding-bottom:25px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#0000ff;font-size:18px;text-align:center;"><strong><a href="{{ $portal_url }}" target="_blank">{{ $portal_text }}</a></strong></p></td>
 </tr>
 </table></td>
 </tr>
@@ -162,7 +162,7 @@ padding:10px 20px 10px 20px!important;
     <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
     <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
     <tr>
-    <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:30px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#808080;font-size:10px;text-align:justify;">
+    <td align="center" style="padding:0;Margin:0;padding-top:0px;padding-bottom:30px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:15px;color:#808080;font-size:11px;text-align:justify;">
         Por favor no responda a este correo. El sistema de notificaciones de UTP está destinado únicamente para fines informativos. Toda la información de la Universidad contenida en este mensaje es confidencial y de uso exclusivo de UTP. Su divulgación, copia y/o adulteración están prohibidas y solo debe ser conocida por la persona a quién se dirige este mensaje.
         </p></td>
     </tr>
