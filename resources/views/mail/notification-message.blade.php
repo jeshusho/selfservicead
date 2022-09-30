@@ -92,7 +92,9 @@ padding:10px 20px 10px 20px!important;
 <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
 <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
-<td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#595959;font-size:20px;text-align:center;">Hola {{ $given_name }} - {{ $username }}<br>Te recordamos que <strong>tu contraseña de acceso al correo electrónico y a los sistemas de UTP </strong> se vencerá en {{ $expiration_days }} días.</p></td>
+<td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:30px;color:#595959;font-size:20px;text-align:center;">
+    Hola {{ $given_name }} - {{ $username }}<br>Te recordamos que <strong>tu contraseña de acceso al correo electrónico y a los sistemas de UTP </strong> se vencerá en {{ $expiration_days }} @if ($expiration_days == 1) día. @else días.  @endif
+</p></td>
 </tr>
 </table></td>
 </tr>
@@ -100,7 +102,8 @@ padding:10px 20px 10px 20px!important;
 <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
 <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
-<td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#595959;font-size:16px;text-align:center;"><strong>Para no verte afectado te sugerimos realizar el cambio de tu contraseña ingresando al siguiente link</strong></p></td>
+<td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#595959;font-size:16px;text-align:center;">
+    <strong>Para no verte afectado deberás ingresar al siguiente link para cambiar tu contraseña</strong></p></td>
 </tr>
 </table></td>
 </tr>
@@ -125,9 +128,9 @@ padding:10px 20px 10px 20px!important;
 <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
 <td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:23px;color:#000000;font-size:15px;text-align:center;">
-    <ul style="display: inline-block;">
-        <li>WhatsApp: <a href="{{ $mda_whatsapp_url }}" target="_blank">{{ $mda_whatsapp_text }}</a></li>
-        <li>Teléfono: <a href="{{ $mda_phone_url }}" target="_blank">{{ $mda_phone_text }}</a></li>
+    <ul style="display: inline-block; list-style-type: none;padding: 0;margin: 0;">
+        <li>WhatsApp: {{ $mda_whatsapp_text }}</li>
+        <li>Teléfono: {{ $mda_phone_text }}</li>
         <li>Anexo: {{ $mda_extension_text }}</li>
         <li>Portal Web: <a href="{{ $mda_portal_url }}" target="_blank">{{ $mda_portal_text }}</a></li>
         <li>Correo: <a href="{{ $mda_mail_url }}" target="_blank">{{ $mda_mail_text }}</li>
@@ -140,9 +143,12 @@ padding:10px 20px 10px 20px!important;
 <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
 <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
-<td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#000000;font-size:14px;text-align:center;">Para conocer más sobre nuestros servicios tecnológicos te invitamos a visitar el portal</p></td>
+<td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:15px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#000000;font-size:14px;text-align:center;">
+    Para conocer más sobre nuestros servicios tecnológicos te invitamos a visitar el portal
+    </p></td>
 </tr>
-</table></td>
+</table>
+</td>
 </tr>
 <tr>
 <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
@@ -151,6 +157,17 @@ padding:10px 20px 10px 20px!important;
 <td align="center" style="padding:0;Margin:0;padding-top:0px;padding-bottom:30px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:27px;color:#0000ff;font-size:18px;text-align:center;"><strong><a href="{{ $portal_url }}" target="_blank">{{ $portal_text }}</a></strong></p></td>
 </tr>
 </table></td>
+</tr>
+<tr>
+    <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
+    <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+    <tr>
+    <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:30px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#808080;font-size:10px;text-align:justify;">
+        Por favor no responda a este correo. El sistema de notificaciones de UTP está destinado únicamente para fines informativos. Toda la información de la Universidad contenida en este mensaje es confidencial y de uso exclusivo de UTP. Su divulgación, copia y/o adulteración están prohibidas y solo debe ser conocida por la persona a quién se dirige este mensaje.
+        </p></td>
+    </tr>
+    </table>
+    </td>
 </tr>
 </table></td>
 </tr>
