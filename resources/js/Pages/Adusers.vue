@@ -99,7 +99,7 @@
                             </tbody>
                         </table>
                         <div v-else class="bg-red-100 border border-red-400 p-3 rounded-lg text-red-800 mt-5 text-left w-80">
-                            No hay notificaciones enviadas
+                            No hay usuarios en la OU
                         </div>
                     </div>
                 </div>
