@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MessagesExport;
 use App\Models\Message;
+use App\Models\ScheduledTask;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class MessageController extends Controller
 {
@@ -22,19 +24,29 @@ class MessageController extends Controller
         $messages = Message::where('sending_time','>=',$datetime_ini)
                             ->where('sending_time','<=',$datetime_end)
                             ->orderBy('created_at','DESC')
-                            ->paginate(100);
-
-        // $messages = Message::orderBy('created_at','DESC')
-        //                     ->paginate(100);
-        // $messages = Message::select('')
-        // $tickets = Ticket::select('id','ticket_id','tipo','asunto','categorias','empresa','tipo_de_usuario','modo_de_ingreso_ticket','prioridad','group','asignado','fecha_creacion','fecha_de_solucion')
-        //             ->where('editable',true)
-        //             ->orderBy('created_date','DESC')
-        //             ->paginate(250);
-                    
+                            ->paginate(100);                  
         
-        return Inertia::render('Messages', [
-            'messages' => $this->transformMessages($messages)
+        return Inertia::render('Dashboard', [
+            'messages' => $this->transformMessages($messages),
+            'datetime_ini_local' => str_replace('','T',$datetime_ini_local),
+            'datetime_end_local' => str_replace('','T',$datetime_end_local)
+        ]);
+    }
+
+    public function filter($message_date_ini, $message_date_end)
+    {
+        $datetime_ini =  Carbon::parse($message_date_ini, 'America/Lima')->setTimezone('UTC')->isoFormat('YYYY-MM-DD HH:mm:ss');
+        $datetime_end =  Carbon::parse($message_date_end, 'America/Lima')->setTimezone('UTC')->isoFormat('YYYY-MM-DD HH:mm:ss');
+
+        $messages = Message::where('sending_time','>=',$datetime_ini)
+                            ->where('sending_time','<=',$datetime_end)
+                            ->orderBy('created_at','DESC')
+                            ->paginate(100);                  
+        
+        return Inertia::render('Dashboard', [
+            'messages' => $this->transformMessages($messages),
+            'datetime_ini_local' => str_replace('','T',$message_date_ini),
+            'datetime_end_local' => str_replace('','T',$message_date_end)
         ]);
     }
 
@@ -45,7 +57,8 @@ class MessageController extends Controller
             $array = [
                 'id' => $row->id,
                 'aduser_id' => $row->aduser_id,
-                'sending_time' => !is_null($row->sending_time) ? Carbon::parse($row->sending_time, 'UTC')->setTimezone('America/Lima')->isoFormat('D/M/YYYY HH:mm') : null,
+                'aduser' => $row->aduser,
+                'sending_time' => !is_null($row->sending_time) ? Carbon::parse($row->sending_time, 'UTC')->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY HH:mm') : null,
                 'days' => $row->days,
                 //'fecha_creacion' => Carbon::parse($row->created_date, 'UTC')->setTimezone('America/Lima')->isoFormat('D/M/YYYY HH:mm'),
                 //'fecha_creacion' => $row->fecha_creacion,
@@ -58,5 +71,29 @@ class MessageController extends Controller
         $transform_messages =  json_decode(json_encode($messages));
         $transform_messages->data = $messages_data;
         return $transform_messages;
+    }
+
+
+    public function export_excel($message_date_ini, $message_date_end)
+    {
+        $datetime_ini =  Carbon::parse($message_date_ini, 'America/Lima')->setTimezone('UTC')->isoFormat('YYYY-MM-DD HH:mm:ss');
+        $datetime_end =  Carbon::parse($message_date_end, 'America/Lima')->setTimezone('UTC')->isoFormat('YYYY-MM-DD HH:mm:ss');
+
+
+        $data  = Message::where('sending_time','>=',$datetime_ini)
+            ->where('sending_time','<=',$datetime_end)
+            ->orderBy('created_at','DESC')
+            ->get();
+        
+        foreach($data as $row){
+            $row->sending_time =  !is_null($row->sending_time) ? Carbon::parse($row->sending_time, 'UTC')->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY HH:mm') : null;
+        }
+
+        $date_ini = Carbon::parse($message_date_ini, 'America/Lima')->isoFormat('DD/MM/YYYY'); 
+        $date_end = Carbon::parse($message_date_end, 'America/Lima')->isoFormat('DD/MM/YYYY');
+
+        //$today = Carbon::today('America/Lima')->isoFormat('DD/MM/YYYY');
+        $report = new MessagesExport($data, $date_ini, $date_end);
+        return Excel::download($report, 'reporte-notificaciones.xlsx');
     }
 }

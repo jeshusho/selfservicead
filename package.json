@@ -20,5 +20,8 @@
         "vite": "^3.0.0",
         "vite-plugin-static-copy": "^0.9.0",
         "vue": "^3.2.31"
+    },
+    "dependencies": {
+        "@vuepic/vue-datepicker": "^3.4.8"
     }
 }

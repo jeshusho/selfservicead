@@ -11,6 +11,7 @@ use App\Models\ScheduledTask;
 use App\Models\Setting;
 use Carbon\Carbon;
 use DateTimeZone;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -60,8 +61,8 @@ class NotificationController extends Controller
                         {
                             array_push($expiration_days,$n->days);
                         }
-                        if(Aduser::where('active',true)->whereIn('expiration_days',$expiration_days)->count() > 0){
-                            $adusers = Aduser::where('active',true)->whereIn('expiration_days',$expiration_days)->get();
+                        if(Aduser::where('active',true)->where('password_expired',false)->whereIn('expiration_days',$expiration_days)->count() > 0){
+                            $adusers = Aduser::where('active',true)->where('password_expired',false)->whereIn('expiration_days',$expiration_days)->get();
                             $num_notif = 0;
     
                             foreach($adusers as $aduser)
@@ -103,5 +104,52 @@ class NotificationController extends Controller
             'datetime_ini' => $datetime_ini,
             'datetime_end' => $datetime_end,
         ];
+    }
+
+    public function index()
+    {
+
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => [
+                        'required',
+                        'max:255',
+                    ],
+            'days' => [
+                        'required',
+                        Rule::unique(Notification::class)
+                    ],
+        ]);
+
+        Notification::create($request->all());
+
+        return redirect()->route('settings.index');
+    }
+
+    public function update(Request $request, Notification $notification)
+    {
+        $request->validate([
+            'name' => [
+                        'required',
+                        'max:255',
+                    ],
+            'days' => [
+                        'required',
+                        Rule::unique(Notification::class)->ignore($notification->id)
+                    ],
+        ]);
+
+        $notification->update($request->all());
+
+        return redirect()->route('settings.index');
+    }
+
+    public function destroy(Notification $notification)
+    {
+        $notification->delete();
+        return redirect()->route('settings.index');
     }
 }

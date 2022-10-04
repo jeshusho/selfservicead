@@ -49,13 +49,18 @@ const logout = () => {
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard') || route().current('messages.filter')">
+                                    Inicio
                                 </NavLink>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('messages.index')" :active="route().current('messages')">
-                                    Notificaciones
+                                <NavLink :href="route('adusers.index')" :active="route().current('adusers.index')">
+                                    Usuarios
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('settings.index')" :active="route().current('settings.index')">
+                                    Configuraciones
                                 </NavLink>
                             </div>
                         </div>
