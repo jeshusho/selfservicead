@@ -24,7 +24,7 @@
                     <div class="mx-auto text-right">
                         <h2 class="text-center font-bold text-2xl">Usuarios - Expiración de contraseñas</h2>
                         <div class="text-center font-bold text-base">Actualizado al {{ today }}</div>
-                        <a
+                        <a v-if="adusers.data.length > 0"
                             class="
                                 p-3
                                 border-2
@@ -42,7 +42,7 @@
                             
                         <table v-if="adusers.data.length > 0" class="w-full text-left mt-4">
                             <thead
-                                class="border-b-2 border-gray-300 text-indigo-600"
+                                class="border-b-2 border-gray-300 text-indigo-600 text-base"
                             >
                                 <tr>
                                     <th class="px-6 py-3 text-left">
@@ -58,7 +58,7 @@
                                         Contraseña<br>expirada
                                     </th>
                                     <th class="px-6 py-3 text-left">
-                                        Expira<br>en
+                                        Expira en
                                     </th>
                                 </tr>
                             </thead>
