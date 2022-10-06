@@ -25,7 +25,7 @@ class AduserController extends Controller
                             ->orderBy('username','ASC')
                             ->paginate(100);                  
         $last_schedule_task = ScheduledTask::orderBy('id','DESC')->first();
-        $today = Carbon::createFromIsoFormat('YYYY-MM-DD HH:mm:ss', $last_schedule_task->created_at, 'UTC')->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY');
+        $today = !is_null($last_schedule_task) ? Carbon::createFromIsoFormat('YYYY-MM-DD HH:mm:ss', $last_schedule_task->created_at, 'UTC')->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY') : null;
 
         return Inertia::render('Adusers', [
             'adusers' => $adusers,
