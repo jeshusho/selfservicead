@@ -30,5 +30,6 @@ class SettingSeeder extends Seeder
         Setting::create(['parameter' => 'portal_text', 'value' => 'http://gttd.utp.edu.pe/']);
         Setting::create(['parameter' => 'portal_url', 'value' => 'http://gttd.utp.edu.pe/']);
         Setting::create(['parameter' => 'max_delay', 'value' => '30']);
+        Setting::create(['parameter' => 'admin_email', 'value' => 'jyance@utp.edu.pe']);
     }
 }

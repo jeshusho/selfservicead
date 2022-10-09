@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('run')->nullable();
             $table->date('exec_date')->nullable();
+            $table->dateTime('exec_datetime')->nullable();
             $table->timestamps();
         });
     }

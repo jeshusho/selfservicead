@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NotificationMessage;
+use App\Mail\NotificationScheduledTask;
 use App\Models\Aduser;
 use App\Models\Message;
 use App\Models\Notification;
@@ -33,7 +34,7 @@ class NotificationController extends Controller
             {
                 $last_st = ScheduledTask::orderBy('id','DESC')->first();
                 if(!is_null($last_st)){
-                    $last_exec = Carbon::createFromFormat('Y-m-d H:i:s',  $last_st->created_at);
+                    $last_exec = Carbon::createFromFormat('Y-m-d H:i:s',  $last_st->exec_datetime);
                     $diffmin = $last_exec->diffInMinutes($now);
                     $max_delay = intval(Setting::where('parameter','max_delay')->first()->value);
                     //return $diffmin;
@@ -83,6 +84,13 @@ class NotificationController extends Controller
                         }
                     }
                     else{
+                        $data = [
+                            'dt_notification' => $now->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY HH:mm'),
+                            'dt_last_scheduled_task' => $last_exec->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY HH:mm'),
+                            'delay_minutes' => $max_delay
+                        ];
+                        $admin_email = Setting::where('parameter','admin_email')->first()->value;
+                        Mail::to($admin_email)->send(new NotificationScheduledTask(json_decode(json_encode($data))));
                         Log::info('Última actualización de información no se ejecutó en el rango de ' . $max_delay . ' minutos.');
                     }
                 }

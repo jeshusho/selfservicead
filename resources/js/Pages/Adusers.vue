@@ -23,7 +23,7 @@
                 ">
                     <div class="mx-auto text-right">
                         <h2 class="text-center font-bold text-2xl">Usuarios - Expiración de contraseñas</h2>
-                        <div class="text-center font-bold text-base">Actualizado al {{ today }}</div>
+                        <div v-if="adusers.data.length > 0" class="text-center font-bold text-base">Actualizado al {{ today }}</div>
                         <a v-if="adusers.data.length > 0"
                             class="
                                 p-3
@@ -79,7 +79,7 @@
                                         {{ aduser.password_expired ? 'SI' : 'NO' }} 
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ (aduser.expiration_days>1) ? aduser.expiration_days + ' dias': aduser.expiration_days + ' día' }} 
+                                        {{ (Math.abs(aduser.expiration_days)>1) ? aduser.expiration_days + ' dias': aduser.expiration_days + ' día' }} 
                                     </td>
                                 </tr>
                                 <tr>
@@ -98,7 +98,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div v-else class="bg-red-100 border border-red-400 p-3 rounded-lg text-red-800 mt-5 text-left w-80">
+                        <div v-else class="bg-red-100 border border-red-400 p-3 rounded-lg text-red-800 mt-5 text-left w-80 text-base">
                             No hay usuarios para mostrar
                         </div>
                     </div>

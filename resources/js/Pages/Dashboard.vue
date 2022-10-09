@@ -74,7 +74,7 @@
                                         {{ message.sending_time }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ (message.days>1) ? message.days + ' dias': message.days + ' día' }} 
+                                        {{ (Math.abs(message.days)>1) ? message.days + ' dias': message.days + ' día' }} 
                                     </td>
                                 </tr>
                                 <tr>

@@ -25,7 +25,7 @@ class AduserController extends Controller
                             ->orderBy('username','ASC')
                             ->paginate(100);                  
         $last_schedule_task = ScheduledTask::orderBy('id','DESC')->first();
-        $today = !is_null($last_schedule_task) ? Carbon::createFromIsoFormat('YYYY-MM-DD HH:mm:ss', $last_schedule_task->created_at, 'UTC')->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY') : null;
+        $today = !is_null($last_schedule_task) ? Carbon::createFromIsoFormat('YYYY-MM-DD HH:mm:ss', $last_schedule_task->exec_datetime, 'UTC')->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY HH:mm') : null;
 
         return Inertia::render('Adusers', [
             'adusers' => $adusers,
@@ -56,6 +56,7 @@ class AduserController extends Controller
         Carbon::setLocale('es');
         $now = Carbon::now();
         $today = Carbon::today('America/Lima')->isoFormat('YYYY-M-D');
+        $now_datetime = $now->isoFormat('YYYY-MM-DD HH:mm:ss');
         $registros =  json_decode(json_encode($request->all()));
                 
         foreach($registros as $r){
@@ -90,7 +91,7 @@ class AduserController extends Controller
         }
 
         $run = ScheduledTask::where('exec_date',$today)->count() + 1;
-        ScheduledTask::create(['run' => $run,'exec_date'=> $today]);
+        ScheduledTask::create(['run' => $run,'exec_date'=> $today, 'exec_datetime' => $now_datetime]);
 
         return [
             'total' => Aduser::where('active',true)->count()
