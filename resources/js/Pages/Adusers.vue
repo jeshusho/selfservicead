@@ -78,9 +78,10 @@
                                     <td class="px-6 py-4">
                                         {{ aduser.password_expired ? 'SI' : 'NO' }} 
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td v-if="aduser.expiration_days !== null" class="px-6 py-4">
                                         {{ (Math.abs(aduser.expiration_days)>1) ? aduser.expiration_days + ' dias': aduser.expiration_days + ' día' }} 
                                     </td>
+                                    <td v-else></td>
                                 </tr>
                                 <tr>
                                     <td colspan="5" class="text-center pt-5">                               

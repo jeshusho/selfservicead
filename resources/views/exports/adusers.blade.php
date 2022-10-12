@@ -27,7 +27,11 @@
             <td>{{ $aduser->mail }}</td>
             <td>{{ $aduser->expiration_str }}</td>
             <td>@if ($aduser->password_expired) SI @else NO @endif</td>
-            <td>{{ $aduser->expiration_days }} @if (abs($aduser->expiration_days)>1) días @else día @endif</td>
+            <td>
+                @if(!is_null($aduser->expiration_days))
+                    {{ $aduser->expiration_days }} @if (abs($aduser->expiration_days)>1) días @else día @endif
+                @endif
+            </td>
         </tr>
     @endforeach
     </tbody>

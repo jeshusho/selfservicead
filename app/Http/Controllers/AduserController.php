@@ -72,22 +72,26 @@ class AduserController extends Controller
                 $expiration_days = $now->midDay()->diffInDays($expiration1->midDay());
                 if($r->PasswordExpired) $expiration_days = $expiration_days * (-1);
             }
-            $data = [
-                'username' => $r->SamAccountName,
-                'display_name' => strtoupper($r->Displayname),
-                'given_name' => strtoupper($r->givenName),
-                'mail' => $r->mail,
-                'department' => $r->department,
-                'password_expired' => $r->PasswordExpired,
-                //'expiration_str' => !is_null($r->ExpirationDate) ? $r->ExpirationDate->DateTime : null,
-                //'expiration_str' => !is_null($r->ExpirationDate) ? Carbon::createFromIsoFormat('dddd, MMMM D, YYYY h:mm:ss A', $r->ExpirationDate->DateTime, null, 'es')->isoFormat('llll') : null,
-                'expiration_date' =>  !is_null($expiration) ? $expiration->isoFormat('YYYY-MM-DD HH:mm:ss'): null,
-                'expiration_str' => !is_null($expiration) ? $expiration->setTimezone('America/Lima')->isoFormat("dddd DD \\d\\e MMMM \\d\\e YYYY, hh:mm A"): null,
-                'expiration_days' => $expiration_days,
-                'active' => true
-            ];
-            if(Aduser::where('username',$r->SamAccountName)->count() == 0) Aduser::create($data);
-            else Aduser::where('username',$r->SamAccountName)->update($data);
+            $add = true;
+            if(isset($r->distinguishedName) && str_contains($r->distinguishedName,"OU=IDAT")) $add=false;
+            if($add){
+                $data = [
+                    'username' => $r->SamAccountName,
+                    'display_name' => strtoupper($r->Displayname),
+                    'given_name' => strtoupper($r->givenName),
+                    'mail' => $r->mail,
+                    'department' => $r->department,
+                    'password_expired' => $r->PasswordExpired,
+                    //'expiration_str' => !is_null($r->ExpirationDate) ? $r->ExpirationDate->DateTime : null,
+                    //'expiration_str' => !is_null($r->ExpirationDate) ? Carbon::createFromIsoFormat('dddd, MMMM D, YYYY h:mm:ss A', $r->ExpirationDate->DateTime, null, 'es')->isoFormat('llll') : null,
+                    'expiration_date' =>  !is_null($expiration) ? $expiration->isoFormat('YYYY-MM-DD HH:mm:ss'): null,
+                    'expiration_str' => !is_null($expiration) ? $expiration->setTimezone('America/Lima')->isoFormat("dddd DD \\d\\e MMMM \\d\\e YYYY, hh:mm A"): null,
+                    'expiration_days' => $expiration_days,
+                    'active' => true
+                ];
+                if(Aduser::where('username',$r->SamAccountName)->count() == 0) Aduser::create($data);
+                else Aduser::where('username',$r->SamAccountName)->update($data);
+            }
         }
 
         $run = ScheduledTask::where('exec_date',$today)->count() + 1;
