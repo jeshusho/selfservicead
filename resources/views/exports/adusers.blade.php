@@ -16,7 +16,7 @@
         <th>Mail</th>
         <th>Fecha de expiración</th>
         <th>Contaseña<br>expirada</th>
-        <th>Expira en</th>
+        <th>Días expirar</th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +29,8 @@
             <td>@if ($aduser->password_expired) SI @else NO @endif</td>
             <td>
                 @if(!is_null($aduser->expiration_days))
-                    {{ $aduser->expiration_days }} @if (abs($aduser->expiration_days)>1) días @else día @endif
+                    {{ $aduser->expiration_days }}
+                    {{-- {{ $aduser->expiration_days }} @if (abs($aduser->expiration_days)>1) días @else día @endif --}}
                 @endif
             </td>
         </tr>

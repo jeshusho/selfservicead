@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\Aduser;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -46,6 +47,7 @@ class AdusersExport implements FromView,WithColumnFormatting, WithTitle, WithCol
     public function columnFormats(): array
     {
         return [
+            'F' => NumberFormat::FORMAT_NUMBER
             // 'C' => NumberFormat::FORMAT_TEXT,
             // 'E' => 'dd/md/yyyy h:mm', //NumberFormat::FORMAT_DATE_DDMMYYYY, //'dd/md/yyyy h:mm',//NumberFormat::FORMAT_DATE_DDMMYYYY,
             // 'G' => NumberFormat::FORMAT_TEXT, //H

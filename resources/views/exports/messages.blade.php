@@ -23,7 +23,8 @@
             <td>{{ $message->aduser->username }}</td>
             <td>{{ $message->aduser->mail }}</td>
             <td>{{ $message->sending_time }}</td>
-            <td>{{ $message->days }} @if (abs($message->days)>1) días @else día @endif</td>
+            <td>{{ $message->days }}</td>
+            {{-- <td>{{ $message->days }} @if (abs($message->days)>1) días @else día @endif</td> --}}
         </tr>
     @endforeach
     </tbody>
