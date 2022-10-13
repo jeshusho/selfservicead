@@ -127,15 +127,15 @@ padding:10px 20px 10px 20px!important;
 <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
 <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
 <tr>
-<td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;text-align:center;"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:23px;color:#000000;font-size:15px;text-align:center;">
-    <ul style="display: inline-block; list-style-type: none;padding: 0;margin: 0;">
-        <li>WhatsApp: {{ $mda_whatsapp_text }}</li>
-        <li>Teléfono: {{ $mda_phone_text }}</li>
-        <li>Anexo: {{ $mda_extension_text }}</li>
-        <li>Portal Web: <a href="{{ $mda_portal_url }}" target="_blank">{{ $mda_portal_text }}</a></li>
-        <li>Correo: <a href="{{ $mda_mail_url }}" target="_blank">{{ $mda_mail_text }}</li>
-    </ul>
-</p></td>
+<td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;text-align:center;">
+<p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:23px;color:#000000;font-size:15px;text-align:center;">
+WhatsApp: {{ $mda_whatsapp_text }}<br>
+Teléfono: {{ $mda_phone_text }}<br>
+Anexo: {{ $mda_extension_text }}<br>
+Portal Web: <a href="{{ $mda_portal_url }}" target="_blank">{{ $mda_portal_text }}</a><br>
+Correo: <a href="{{ $mda_mail_url }}" target="_blank">{{ $mda_mail_text }}
+</p>
+</td>
 </tr>
 </table></td>
 </tr>
