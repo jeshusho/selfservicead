@@ -10,6 +10,7 @@ use App\Models\Notification;
 use App\Models\Schedule;
 use App\Models\ScheduledTask;
 use App\Models\Setting;
+use App\Models\User;
 use Carbon\Carbon;
 use DateTimeZone;
 use Illuminate\Validation\Rule;
@@ -89,8 +90,12 @@ class NotificationController extends Controller
                             'dt_last_scheduled_task' => $last_exec->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY HH:mm'),
                             'delay_minutes' => $max_delay
                         ];
-                        $admin_email = Setting::where('parameter','admin_email')->first()->value;
-                        Mail::to($admin_email)->send(new NotificationScheduledTask(json_decode(json_encode($data))));
+                        //$admin_email = Setting::where('parameter','admin_email')->first()->value;
+                        //Mail::to($admin_email)->send(new NotificationScheduledTask(json_decode(json_encode($data))));
+                        $users = User::get();
+                        foreach($users as $u){
+                            Mail::to($u->email)->send(new NotificationScheduledTask(json_decode(json_encode($data))));
+                        }
                         Log::info('Última actualización de información no se ejecutó en el rango de ' . $max_delay . ' minutos.');
                     }
                 }
