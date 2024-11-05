@@ -5,6 +5,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SelfserviceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -55,3 +56,5 @@ Route::middleware([
     Route::resource('schedules', ScheduleController::class)
                 ->except(['create', 'show', 'edit']);
 });
+
+Route::get('/selfservice', [SelfserviceController::class, 'index'])->name('selfservice');
