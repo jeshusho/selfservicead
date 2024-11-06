@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('display_name')->nullable();
             $table->string('given_name')->nullable();
             $table->string('mail')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('dni')->nullable();
             $table->string('department')->nullable();
             $table->boolean('password_expired')->default(false);
             $table->dateTime('expiration_date')->nullable();

@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         User::create([ 
-            'name' => 'notificacionesad',
-            'email' => 'notificacionesad@utp.edu.pe',
+            'name' => 'selfservicead',
+            'email' => 'selfservicead@aviva.pe',
             'email_verified_at' => now(),
             'password' => Hash::make("Atudexi2$"),
             'remember_token' => Str::random(50),
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         DB::table('personal_access_tokens')->insert([
             'tokenable_type' => 'App\Models\User',
             'tokenable_id' => 1,
-            'name' => 'notificacionesad',
+            'name' => 'selfservicead',
             'token' => '7a64f742184dca3430c65af7799b879a39c31c9a5ee8cd30aa0e0f81450b8729',
             'abilities' => '["read","create","update"]',
         ]);

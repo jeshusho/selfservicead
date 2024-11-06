@@ -13,6 +13,8 @@ class Aduser extends Model
         'display_name',
         'given_name',
         'mail',
+        'phone',
+        'dni',
         'department',
         'password_expired',
         'expiration_date',
