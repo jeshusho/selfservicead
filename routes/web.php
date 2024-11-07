@@ -58,4 +58,9 @@ Route::middleware([
                 ->except(['create', 'show', 'edit']);
 });
 
+Route::resource('selfservice', SelfserviceController::class)
+->except(['create', 'show', 'edit']);
+/*
 Route::get('/selfservice', [SelfserviceController::class, 'index'])->name('selfservice');
+Route::post('/selfservice', [SelfserviceController::class, 'store']);
+*/

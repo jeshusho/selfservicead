@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Exports\AdusersExport;
 use App\Models\Aduser;
 use App\Models\ScheduledTask;
+use App\Models\SelfserviceRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 use Stringable;
@@ -42,54 +44,22 @@ class SelfserviceController extends Controller
     public function store(Request $request)
     {
         //return $request->all();
-        Aduser::where('active',true)->update(['active' => false]);
         Carbon::setLocale('es');
-        $now = Carbon::now();
-        $today = Carbon::today('America/Lima')->isoFormat('YYYY-M-D');
-        $now_datetime = $now->isoFormat('YYYY-MM-DD HH:mm:ss');
-        $registros =  json_decode(json_encode($request->all()));
-                
-        foreach($registros as $r){
-            //$texto_convert = strtr(utf8_decode($texto), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
-            $expiration_timestamp = null;
-            $expiration_days = null;
-            $expiration = null;
-            if(!is_null($r->ExpirationDate)){
-                $expiration_timestamp = intval(str_replace(")/","",str_replace("/Date(", "", $r->ExpirationDate->value)));
-                $expiration = Carbon::createFromTimestampMs($expiration_timestamp);
-                $expiration1 = Carbon::createFromTimestampMs($expiration_timestamp);
-                //$expiration_days = ceil($now->diffInHours($expiration)/24);
-                $expiration_days = $now->midDay()->diffInDays($expiration1->midDay());
-                if($r->PasswordExpired) $expiration_days = $expiration_days * (-1);
-            }
-            $add = true;
-            if(isset($r->distinguishedName) && str_contains($r->distinguishedName,"OU=IDAT")) $add=false;
-            if($add){
-                $data = [
-                    'username' => $r->SamAccountName,
-                    'display_name' => strtoupper($r->Displayname),
-                    'given_name' => strtoupper($r->givenName),
-                    'mail' => $r->mail,
-                    'department' => $r->department,
-                    'password_expired' => $r->PasswordExpired,
-                    //'expiration_str' => !is_null($r->ExpirationDate) ? $r->ExpirationDate->DateTime : null,
-                    //'expiration_str' => !is_null($r->ExpirationDate) ? Carbon::createFromIsoFormat('dddd, MMMM D, YYYY h:mm:ss A', $r->ExpirationDate->DateTime, null, 'es')->isoFormat('llll') : null,
-                    'expiration_date' =>  !is_null($expiration) ? $expiration->isoFormat('YYYY-MM-DD HH:mm:ss'): null,
-                    'expiration_str' => !is_null($expiration) ? $expiration->setTimezone('America/Lima')->isoFormat("dddd DD \\d\\e MMMM \\d\\e YYYY, hh:mm A"): null,
-                    'expiration_days' => $expiration_days,
-                    'active' => true
-                ];
-                if(Aduser::where('username',$r->SamAccountName)->count() == 0) Aduser::create($data);
-                else Aduser::where('username',$r->SamAccountName)->update($data);
-            }
-        }
-
-        $run = ScheduledTask::where('exec_date',$today)->count() + 1;
-        ScheduledTask::create(['run' => $run,'exec_date'=> $today, 'exec_datetime' => $now_datetime]);
-
-        return [
-            'total' => Aduser::where('active',true)->count()
+        $expiration_code = Carbon::now()->addMinutes(2);
+        $expiration_code_datetime = $expiration_code->isoFormat('YYYY-MM-DD HH:mm:ss');
+        //$registros =  json_decode(json_encode($request->all()));
+        
+        $data = [
+            'username' => $request->username,
+            'expiration_code' => $expiration_code_datetime,
+            'active' => true
         ];
+
+        SelfserviceRequest::create($data);
+                
+        $user = Aduser::where('username',$request->username)->first();
+
+        return Inertia::render('Selfservice', ['user' => $user]);
     }
 
     /**
@@ -121,9 +91,34 @@ class SelfserviceController extends Controller
      * @param  \App\Models\Aduser  $aduser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aduser $aduser)
+    public function update(Request $request, SelfserviceRequest $data)
     {
-        //
+        //Log::info('ID de registro a actualizar:', ['id' => $data->id]);
+
+        $validatedData = $request->validate([
+            'username' => 'string|max:255',
+            'status' => 'integer',
+            //'field1' => 'required|string|max:255',
+            //'field2' => 'nullable|integer',
+            //'field3' => 'required|email',
+            // Agrega todas las validaciones necesarias para los campos que deseas actualizar
+        ]);
+    
+        // Agrega un log para verificar los datos validados
+        //Log::info('Datos validados para actualización:', $validatedData);
+
+        // Actualizar el modelo con los datos validados
+        //$data->username = $validatedData['username'] ?? $data->username;
+        //$data->status = $validatedData['status'] ?? $data->status;
+        //$data->save();
+        $data->update($validatedData);
+        //$data->save();
+    
+        // Devolver una respuesta exitosa
+        return response()->json([
+            'message' => 'Registro actualizado con éxito',
+            'data' => $data->fresh()
+        ], 200);
     }
 
     /**
@@ -137,16 +132,17 @@ class SelfserviceController extends Controller
         //
     }
 
-    public function export_excel()
+    public function list()
     {
-        $data  = Aduser::select('id','username','display_name','given_name','mail','department','password_expired','expiration_date','expiration_str','expiration_days')
-                ->where('active',true)
-                ->orderBy('username','ASC')
-                ->get();
-        $last_schedule_task = ScheduledTask::orderBy('id','DESC')->first();
-        $today = Carbon::createFromIsoFormat('YYYY-MM-DD HH:mm:ss', $last_schedule_task->created_at, 'UTC')->setTimezone('America/Lima')->isoFormat('DD/MM/YYYY');
-        //$today = Carbon::today('America/Lima')->isoFormat('DD/MM/YYYY');
-        $report = new AdusersExport($data, $today);
-        return Excel::download($report, 'reporte-usuariosad.xlsx');
+        //return 'hola';
+        $data = SelfserviceRequest::select('id','username')->where('status',0)->get();
+        $number = SelfserviceRequest::select('username')->where('status',0)->count();
+
+        return [
+            'number' => $number,
+            'data' => $data
+        ];
     }
+
+    
 }
