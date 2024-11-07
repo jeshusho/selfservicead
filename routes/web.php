@@ -29,7 +29,7 @@ Route::get('/', function () {
     //     'phpVersion' => PHP_VERSION,
     // ]);
     //return redirect()->route('login');
-    return redirect()->route('selfservice');
+    return redirect()->route('selfservice.index');
 });
 
 Route::middleware([
