@@ -44,22 +44,28 @@ class SelfserviceController extends Controller
     public function store(Request $request)
     {
         //return $request->all();
-        Carbon::setLocale('es');
-        $expiration_code = Carbon::now()->addMinutes(2);
-        $expiration_code_datetime = $expiration_code->isoFormat('YYYY-MM-DD HH:mm:ss');
-        //$registros =  json_decode(json_encode($request->all()));
-        
-        $data = [
-            'username' => $request->username,
-            'expiration_code' => $expiration_code_datetime,
-            'active' => true
-        ];
-
-        SelfserviceRequest::create($data);
-                
-        $user = Aduser::where('username',$request->username)->first();
-
-        return Inertia::render('Selfservice', ['user' => $user]);
+        $count = Aduser::where('username', $request->username)->count();
+        if($count>0){
+            Carbon::setLocale('es');
+            $expiration_code = Carbon::now()->addMinutes(2);
+            $expiration_code_datetime = $expiration_code->isoFormat('YYYY-MM-DD HH:mm:ss');
+            //$registros =  json_decode(json_encode($request->all()));
+            
+            $data = [
+                'username' => $request->username,
+                'expiration_code' => $expiration_code_datetime,
+                'active' => true
+            ];
+    
+            SelfserviceRequest::create($data);
+                    
+            $user = Aduser::where('username',$request->username)->first();
+    
+            return Inertia::render('Selfservice', ['user' => $user]);
+        }
+        else{
+            return Inertia::render('Selfservice', ['usernoexist' => $request->username]);
+        }
     }
 
     /**

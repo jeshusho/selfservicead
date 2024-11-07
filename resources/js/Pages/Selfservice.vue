@@ -14,6 +14,9 @@
             required
           />
         </div>
+        <div v-if="usernoexist" class="italic text-sm font-medium text-red-700 text-center my-2">
+          El usuario <b>{{ usernoexist }}</b> no existe.
+        </div>
         <!--
         <div class="mb-6">
           <label for="phone" class="block text-sm font-medium text-gray-700">Número de celular</label>
@@ -83,6 +86,7 @@ export default {
   },
   props: {
       user: Object,
+      usernoexist: String,
   }
 };
 </script>
