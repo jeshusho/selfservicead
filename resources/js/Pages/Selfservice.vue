@@ -1,10 +1,10 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-gray-100 px-4">
     <div class="w-full sm:w-2/3 md:w-1/3 bg-white p-8 shadow-md rounded-md">
-      <h1 class="text-2xl font-bold mb-6 text-center">Formulario de Self-Service</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center">Desbloqueo de usuario</h1>
       <form @submit.prevent="handleSubmit">
         <div class="mb-6">
-          <label for="username" class="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+          <label for="username" class="block text-sm font-medium text-gray-700">Nombre de usuario (código). <i>Ej: A0001</i></label>
           <input
             type="text"
             id="username"
@@ -14,7 +14,7 @@
             required
           />
         </div>
-
+        <!--
         <div class="mb-6">
           <label for="phone" class="block text-sm font-medium text-gray-700">Número de celular</label>
           <input
@@ -26,7 +26,7 @@
             required
           />
         </div>
-
+        -->
         <button
           type="submit"
           class="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"

@@ -28,7 +28,8 @@ Route::get('/', function () {
     //     'laravelVersion' => Application::VERSION,
     //     'phpVersion' => PHP_VERSION,
     // ]);
-    return redirect()->route('login');
+    //return redirect()->route('login');
+    return redirect()->route('selfservice');
 });
 
 Route::middleware([
